@@ -3,7 +3,8 @@
 // tiva-uart.c - //
 // This is part of revision 2.0.1.11577 of the EK-TM4C123GXL Firmware Package.
 // Modificato per illustrare l'utilizzo della seriale nella MCU.
-// Permette di usare una funzione composita come la printf
+// Permette di usare una funzione composita come la printf, sia con numeri interi che reali
+// in singola precisione.
 //
 //*****************************************************************************
 
@@ -126,6 +127,7 @@ UARTSend(const uint8_t *pui8Buffer, uint32_t ui32Count)
 void
 ConfigureUART(void)
 {
+	uint32_t tempo;
     //
     // Enable the GPIO Peripheral used by the UART.
     //
@@ -148,6 +150,7 @@ ConfigureUART(void)
     //
     UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
 
+    tempo = SysCtlClockGet();
     //
     // Initialize the UART for console I/O.
     //
@@ -163,6 +166,7 @@ ConfigureUART(void)
 int
 main(void)
 {
+
     //
     // Enable lazy stacking for interrupt handlers.  This allows floating-point
     // instructions to be used within interrupt handlers, but at the expense of
@@ -198,6 +202,7 @@ main(void)
     // Enable processor interrupts.
     //
     ROM_IntMasterEnable();
+
 
     //
 	// Enable and Initialize the UART.
