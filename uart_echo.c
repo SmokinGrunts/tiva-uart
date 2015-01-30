@@ -1,33 +1,15 @@
 //*****************************************************************************
 //
-// uart_echo.c - Example for reading data from and writing data to the UART in
-//               an interrupt driven fashion.
-//
-// Copyright (c) 2012-2013 Texas Instruments Incorporated.  All rights reserved.
-// Software License Agreement
-// 
-// Texas Instruments (TI) is supplying this software for use solely and
-// exclusively on TI's microcontroller products. The software is owned by
-// TI and/or its suppliers, and is protected under applicable copyright
-// laws. You may not combine this software with "viral" open-source
-// software in order to form a larger program.
-// 
-// THIS SOFTWARE IS PROVIDED "AS IS" AND WITH ALL FAULTS.
-// NO WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT
-// NOT LIMITED TO, IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE APPLY TO THIS SOFTWARE. TI SHALL NOT, UNDER ANY
-// CIRCUMSTANCES, BE LIABLE FOR SPECIAL, INCIDENTAL, OR CONSEQUENTIAL
-// DAMAGES, FOR ANY REASON WHATSOEVER.
-// 
+// tiva-uart.c - //
 // This is part of revision 2.0.1.11577 of the EK-TM4C123GXL Firmware Package.
+// Modificato per illustrare l'utilizzo della seriale nella MCU.
+// Permette di usare una funzione composita come la printf
 //
 //*****************************************************************************
 
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-
 #include "inc/hw_ints.h"
 #include "inc/hw_memmap.h"
 #include "driverlib/debug.h"
@@ -39,8 +21,8 @@
 #include "driverlib/sysctl.h"
 #include "driverlib/uart.h"
 #include "driverlib/uart.h"
-#include "utils/uartstdio.h"
-#include "utils/cmdline.h"
+#include "uartp/uartstdio.h"
+#include "uartp/cmdline.h"
 
 //*****************************************************************************
 //
