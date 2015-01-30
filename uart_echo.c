@@ -127,7 +127,7 @@ UARTSend(const uint8_t *pui8Buffer, uint32_t ui32Count)
 void
 ConfigureUART(void)
 {
-	uint32_t tempo;
+	volatile uint32_t tempo;
     //
     // Enable the GPIO Peripheral used by the UART.
     //
@@ -182,10 +182,12 @@ main(void)
     //                   SYSCTL_XTAL_16MHZ);
 
     //
-	// Set the system clock to run at 40Mhz off PLL with external crystal as
+	// Set the system clock to run at 80Mhz off PLL with external crystal as
 	// reference.
 	//
-	SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ |
+    //
+
+	SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_XTAL_16MHZ |
 					   SYSCTL_OSC_MAIN);
     //
     // Enable the GPIO port that is used for the on-board LED.
