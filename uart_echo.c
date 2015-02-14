@@ -132,29 +132,51 @@ ConfigureUART(void)
     // Enable the GPIO Peripheral used by the UART.
     //
     ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+    //ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
 
     //
     // Enable UART0
     //
     ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+    // uart1
+   //ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_UART1);
+
 
     //
     // Configure GPIO Pins for UART mode.
     //
-    ROM_GPIOPinConfigure(GPIO_PA0_U0RX);
+    GPIOPinConfigure(GPIO_PA0_U0RX);
     ROM_GPIOPinConfigure(GPIO_PA1_U0TX);
     ROM_GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
 
     //
+	// Configure GPIO Pins for UART1 mode.
+	//
+	/*ROM_GPIOPinConfigure(0x1);
+	ROM_GPIOPinConfigure(0x401);
+	ROM_GPIOPinTypeUART(GPIO_PORTB_BASE, GPIO_PIN_0 | GPIO_PIN_1); */
+
+    //
     // Use the internal 16MHz oscillator as the UART clock source.
     //
-    UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
+    //UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
+    //
+	// Use the internal 16MHz oscillator as the UART clock source.
+	//
+	UARTClockSourceSet(UART0_BASE, UART_CLOCK_PIOSC);
 
     tempo = SysCtlClockGet();
     //
-    // Initialize the UART for console I/O.
+    // Initialize the UART0 for console I/O.
     //
-    UARTStdioConfig(0, 115200, 16000000);
+    //UARTStdioConfig(0, 115200, 16000000);
+
+    //
+	// Initialize the UART1 for console I/O.
+	//
+	UARTStdioConfig(0, 115200, 16000000);
+
+
 }
 
 
@@ -217,7 +239,11 @@ main(void)
     ROM_IntEnable(INT_UART0);
     ROM_UARTIntEnable(UART0_BASE, UART_INT_RX | UART_INT_RT);
 
+    //ROM_IntEnable(INT_UART1);
+    //ROM_UARTIntEnable(UART1_BASE, UART_INT_RX | UART_INT_RT);
 
+
+    UARTSend((uint8_t *)"\033[2JEnter text: \n", 16);
    UARTprintf("\n");
    UARTprintf("Welcome to the Tiva C Series TM4C123G LaunchPad!\n");
    UARTprintf("Prova stampa numero intero %d\n", 243);

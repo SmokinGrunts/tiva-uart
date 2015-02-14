@@ -22,9 +22,25 @@
 //
 //*****************************************************************************
 
+
+#include <stdbool.h>
 #include <stdint.h>
 #include "inc/hw_nvic.h"
 #include "inc/hw_types.h"
+#include "inc/hw_ints.h"
+#include "inc/hw_memmap.h"
+#include "driverlib/debug.h"
+#include "driverlib/fpu.h"
+#include "driverlib/gpio.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/rom.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/uart.h"
+#include "driverlib/uart.h"
+#include "uartp/uartstdio.h"
+#include "uartp/cmdline.h"
+
 
 //*****************************************************************************
 //
@@ -57,6 +73,20 @@ extern uint32_t __STACK_TOP;
 //
 //*****************************************************************************
 extern void UARTIntHandler(void);
+void UART1_ISR(){
+	 uint32_t ui32Status;
+
+	//
+	// Get the interrrupt status.
+	//
+	ui32Status = ROM_UARTIntStatus(UART1_BASE, true);
+
+	//
+	// Clear the asserted interrupts.
+	//
+	ROM_UARTIntClear(UART1_BASE, ui32Status);
+
+}
 
 //*****************************************************************************
 //
@@ -91,7 +121,7 @@ void (* const g_pfnVectors[])(void) =
     IntDefaultHandler,                      // GPIO Port D
     IntDefaultHandler,                      // GPIO Port E
     UARTIntHandler,                         // UART0 Rx and Tx
-    IntDefaultHandler,                      // UART1 Rx and Tx
+    UART1_ISR,                 	     // UART1 Rx and Tx
     IntDefaultHandler,                      // SSI0 Rx and Tx
     IntDefaultHandler,                      // I2C0 Master and Slave
     IntDefaultHandler,                      // PWM Fault
